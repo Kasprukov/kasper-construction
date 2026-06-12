@@ -28,6 +28,7 @@
   }
   &__price-label { color: $muted; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
   &__price-value { font-family: $font-display; font-size: 1.5rem; color: $accent; text-align: right; }
+  &__price-note { margin: -8px 0 22px; font-size: 0.8rem; line-height: 1.45; color: $muted; }
 
   &__card-title { font-size: 1.4rem; }
   &__list { margin: 20px 0 28px; display: grid; gap: 14px; }

@@ -6,10 +6,11 @@ import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
 import useLocale from '../hooks/useLocale'
 
+// Rates are in USD per m² (base, "standard" finish, turnkey scope).
 const types = [
-  { id: 'house', label: { uk: 'Приватний будинок', en: 'Private house' }, rate: 28000 },
-  { id: 'apartment', label: { uk: 'Квартира', en: 'Apartment' }, rate: 22000 },
-  { id: 'commercial', label: { uk: 'Комерційний обʼєкт', en: 'Commercial' }, rate: 24000 },
+  { id: 'house', label: { uk: 'Приватний будинок', en: 'Private house' }, rate: 680 },
+  { id: 'apartment', label: { uk: 'Квартира', en: 'Apartment' }, rate: 540 },
+  { id: 'commercial', label: { uk: 'Комерційний обʼєкт', en: 'Commercial' }, rate: 580 },
 ]
 const finishes = [
   { id: 'rough', label: { uk: 'Чорнове', en: 'Shell' }, k: 0.55 },
@@ -22,7 +23,7 @@ const scopes = [
   { id: 'full', label: { uk: 'Під ключ + меблі', en: 'Turnkey + furniture' }, k: 1.2 },
 ]
 
-const fmt = (n) => new Intl.NumberFormat('uk-UA').format(Math.round(n / 1000) * 1000)
+const fmt = (n) => '$' + new Intl.NumberFormat('en-US').format(Math.round(n / 500) * 500)
 
 export default function Estimate() {
   const { loc } = useLocale()
@@ -40,7 +41,6 @@ export default function Estimate() {
   }, [type, area, finish, scope])
 
   const m2 = loc({ uk: 'мІ', en: 'm²' })
-  const uah = loc({ uk: 'грн', en: 'UAH' })
 
   return (
     <PageWrap>
@@ -94,11 +94,11 @@ export default function Estimate() {
             <div className="estimate__glow" aria-hidden="true" />
             <span className="estimate__result-label">{loc({ uk: 'Орієнтовний бюджет', en: 'Estimated budget' })}</span>
             <div className="estimate__amount" aria-live="polite">
-              {fmt(estimate.low)} – {fmt(estimate.high)} <span className="estimate__cur">{uah}</span>
+              {fmt(estimate.low)} – {fmt(estimate.high)} <span className="estimate__cur">USD</span>
             </div>
-            <span className="estimate__per">≈ {fmt(estimate.perM)} {uah}/{m2} · {area} {m2}</span>
+            <span className="estimate__per">≈ {fmt(estimate.perM)}/{m2} · {area} {m2}</span>
             <p className="estimate__note">
-              {loc({ uk: 'Це попередня оцінка для планування. Фіксований кошторис складаємо після зустрічі та аналізу проєкту.', en: 'This is a rough figure for planning. We prepare a fixed estimate after a meeting and a look at the project.' })}
+              {loc({ uk: 'Ціни вказані для України. Для країн Європи вартість може бути вищою. Це попередня оцінка для планування — фіксований кошторис складаємо після зустрічі.', en: 'Prices are for Ukraine. For European countries the cost may be higher. This is a rough figure for planning — we prepare a fixed estimate after a meeting.' })}
             </p>
             <Link className="btn btn--accent btn--block btn--lg" to="/contacts">{loc({ uk: 'Отримати точний кошторис', en: 'Get an exact estimate' })}</Link>
           </Reveal>

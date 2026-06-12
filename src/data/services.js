@@ -27,7 +27,7 @@ export const services = [
   },
   {
     slug: 'turnkey-construction',
-    priceFrom: { uk: 'від 25 000 грн/мІ', en: 'from ₴25,000 / m²' },
+    priceFrom: { uk: 'від $600/мІ', en: 'from $600/m²' },
     title: { uk: 'Будівництво під ключ', en: 'Turnkey construction' },
     excerpt: {
       uk: 'Комплексні роботи: від нульового циклу до фінішного оздоблення.',
@@ -53,7 +53,7 @@ export const services = [
   },
   {
     slug: 'interior-design',
-    priceFrom: { uk: 'від 1 800 грн/мІ', en: 'from ₴1,800 / m²' },
+    priceFrom: { uk: 'від $45/мІ', en: 'from $45/m²' },
     title: { uk: 'Дизайн інтерʼєру', en: 'Interior design' },
     excerpt: {
       uk: 'Авторські інтерʼєри, що поєднують естетику, функцію та інженерію.',

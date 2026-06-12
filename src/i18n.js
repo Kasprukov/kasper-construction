@@ -29,7 +29,7 @@ const resources = {
         t1: 'Приватна нерухомість', t2: 'Комерційний обʼєкт', t3: 'Дизайн інтерʼєру', t4: 'Інше',
       },
       cookie: {
-        text: 'Ми використовуємо файли cookie для аналітики та покращення сайту.',
+        text: 'Ми використовуємо cookie для аналітики.',
         accept: 'Прийняти', decline: 'Відхилити', more: 'Детальніше',
       },
       sections: {
@@ -65,7 +65,7 @@ const resources = {
         t1: 'Private real estate', t2: 'Commercial property', t3: 'Interior design', t4: 'Other',
       },
       cookie: {
-        text: 'We use cookies for analytics and to improve the site.',
+        text: 'We use cookies for analytics.',
         accept: 'Accept', decline: 'Decline', more: 'Learn more',
       },
       sections: {

@@ -67,10 +67,13 @@ export default function ServiceDetail() {
           <aside className="detail__aside">
             <Reveal className="detail__card">
               {service.priceFrom && (
-                <div className="detail__price">
-                  <span className="detail__price-label">{loc({ uk: 'Вартість', en: 'Cost' })}</span>
-                  <span className="detail__price-value">{service.priceFrom}</span>
-                </div>
+                <>
+                  <div className="detail__price">
+                    <span className="detail__price-label">{loc({ uk: 'Вартість', en: 'Cost' })}</span>
+                    <span className="detail__price-value">{service.priceFrom}</span>
+                  </div>
+                  <p className="detail__price-note">{loc({ uk: 'Ціни вказані для України. Для країн Європи вартість може бути вищою.', en: 'Prices are for Ukraine. For European countries the cost may be higher.' })}</p>
+                </>
               )}
               <h3 className="detail__card-title">{t('labels.included')}</h3>
               <ul className="detail__list">

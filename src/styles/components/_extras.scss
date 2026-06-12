@@ -14,7 +14,7 @@
   // Lift above the cookie bar while it's open (it becomes a full-width
   // bottom sheet on phones).
   @include mq-down(md) {
-    body.cookie-open & { bottom: 168px; }
+    body.cookie-open & { bottom: 128px; }
   }
 
   &__btn {
