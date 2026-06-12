@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Kasper — premium construction & interior studio. React + SCSS (BEM) with smooth-scroll and motion.",
+  "description": "Сайт будівельної студії Kasper. Vite + React, стилі на SCSS (BEM).",
   "scripts": {
     "dev": "vite",
     "build": "vite build && cp dist/index.html dist/404.html",

@@ -1,89 +1,69 @@
-# Kasper — преміальний сайт будівельної студії
+# Kasper
 
-Багатосторінковий сайт у стилі **Dark Luxe / Cinematic**: графітовий фон, золотий
-акцент, велика кінематографічна фотографія, мʼякі світлові сяйва, smooth-scroll і
-анімовані переходи між сторінками.
-
-## Стек
-- **Vite** + **React 18**
-- **react-router-dom** — багатосторінковість + плавні переходи (AnimatePresence)
-- **SCSS** з методологією **BEM** (модульні партіали, токени, мікс-іни)
-- **Framer Motion** — reveal-анімації, паралакс, переходи сторінок
-- **Lenis** — інерційний smooth-scroll (з повагою до `prefers-reduced-motion`)
-- Шрифти: **Playfair Display** (дисплей) + **Manrope** (текст), обидва з кирилицею
-
-## Сторінки / маршрути
-| Шлях | Сторінка |
-|------|----------|
-| `/` | Головна (cinematic hero, послуги, проєкти, цифри, тизер «про нас», CTA) |
-| `/about` | Про нас (історія, цінності, процес, цифри) |
-| `/services` | Послуги (сітка) |
-| `/services/:slug` | Детальна сторінка послуги |
-| `/projects` | Проєкти (фільтр приватні/комерційні) |
-| `/projects/:slug` | Кейс проєкту (факти + галерея + «наступний») |
-| `/team` | Команда |
-| `/contacts` | Контакти + форма заявки |
-| `*` | 404 |
+Сайт будівельної студії. Темна тема, велика фотографія, плавна прокрутка й трохи анімації.
+Зроблений на Vite + React, стилі — SCSS за методологією BEM.
 
 ## Запуск
-> Потрібен Node.js 18+.
+
+Потрібен Node 18+.
 
 ```bash
-cd forma
 npm install
-npm run dev      # → http://localhost:5173
-npm run build && npm run preview   # продакшн
+npm run dev      # http://localhost:5173
 ```
 
-## Структура
+Зібрати продакшн і подивитись локально:
+
+```bash
+npm run build
+npm run preview
+```
+
+> `build` ще копіює `index.html` у `404.html` — це SPA-fallback для GitHub Pages.
+
+## Сторінки
+
+`/` головна, `/about`, `/services` (+ `/services/:slug`), `/projects` (+ `/projects/:slug`),
+`/team`, `/journal` (+ `/journal/:slug`), `/estimate` (калькулятор), `/guarantees`,
+`/contacts`, `/privacy`, `/cookies`.
+
+## Як це влаштовано
+
 ```
 src/
-├─ main.jsx                # точка входу (BrowserRouter)
-├─ App.jsx                 # маршрути + переходи сторінок + smooth scroll
-├─ layout/                 # Layout (Header/Footer), ScrollToTop
-├─ pages/                  # Home, About, Services(+Detail), Projects(+Detail), Team, Contacts, NotFound
-├─ components/             # PageHero, HomeHero, картки, CTA, форма, Reveal, ...
-├─ hooks/                  # useLenis (singleton + scrollToTop), useCountUp
-├─ data/                   # site / services / projects / team — увесь контент
-└─ styles/
-   ├─ main.scss
-   ├─ abstracts/           # _variables (Dark Luxe токени), _mixins
-   ├─ base/                # _reset, _typography, _layout
-   └─ components/          # по партіалу на BEM-блок
+├─ main.jsx, App.jsx       роутинг, переходи сторінок, smooth scroll
+├─ pages/                  по файлу на сторінку
+├─ components/             хедер/футер, картки, форма, lightbox, фон тощо
+├─ hooks/                  Lenis, лічильники, focus-trap
+├─ data/                   увесь контент (тексти, проєкти, послуги, команда…)
+├─ lib/                    asset() для base-шляхів, аналітика
+└─ styles/                 abstracts / base / components (по партіалу на блок)
 ```
 
-## BEM
-`block`, `block__element`, `block--modifier` (напр. `service-card`,
-`service-card__title`, `btn--accent`). Токени/мікс-іни — через `@use '../abstracts' as *;`.
+Контент винесений у `src/data/*` — щоб правити тексти й проєкти, не лізучи в розмітку.
+Кольори й типографіка — у `src/styles/abstracts/_variables.scss`.
 
-## Деплой (важливо)
-Це SPA на `BrowserRouter` — на проді потрібен fallback усіх маршрутів на `index.html`
-(Netlify `_redirects: /* /index.html 200`, Vercel rewrites, або `try_files ... /index.html`
-у nginx). Інакше прямий перехід на `/about` дасть 404.
+## Фото
 
-## Можливості (v2)
-- **Інтро-лоадер** (раз на сесію), **film-grain** текстура, **кастомний курсор + magnetic** кнопки
-- **Split-text** анімація заголовків, паралакс, reveal на скролі
-- **Кейси проєктів:** lightbox-галерея (клавіатура ← → Esc) + **before/after** слайдер
-- **Секції:** відгуки, **FAQ-акордеон**, **Журнал** (`/journal` + статті)
-- **SEO:** `react-helmet-async` (унікальні title/OG на кожній сторінці), JSON-LD
-  (`Organization`/`Service`/`Article`), `sitemap.xml`, `robots.txt`
-- **i18n** uk/en (`react-i18next`) з перемикачем у хедері (інтерфейс; контент — uk)
-- **Форма:** валідація + honeypot + стани (надсилання/успіх/помилка) + endpoint через env
-- **Cookie-згода** + ленивий старт аналітики; **a11y:** skip-link, фокус при зміні сторінки
-- **Перформанс:** `React.lazy` code-splitting по маршрутах
+Лежать у `public/img`. Поряд із кожним JPG є WebP/AVIF у трьох розмірах — їх генерує
+`node scripts/optimize-images.mjs` (запускати після додавання нових картинок).
+Компонент `Img` сам віддає `<picture>` з потрібним форматом.
 
-## Конфігурація (env, опційно)
-Створи `.env` у `forma/`:
+## Налаштування (необовʼязкові)
+
+Скопіюй `.env.example` у `.env`:
+
 ```
-VITE_FORM_ENDPOINT=https://formspree.io/f/xxxx   # бекенд форми (без нього — демо-режим)
-VITE_PLAUSIBLE_DOMAIN=kasper.ua                    # або:
-VITE_GA_ID=G-XXXXXXX                              # Google Analytics 4
+VITE_FORM_ENDPOINT=     # куди слати заявки (Formspree чи свій бекенд). Порожньо — форма в демо-режимі
+VITE_PLAUSIBLE_DOMAIN=  # або
+VITE_GA_ID=             # аналітика, вмикається лише після згоди на cookie
 ```
-Без цих змінних форма працює в демо-режимі, а аналітика — no-op.
 
-## Що легко змінити
-- **Контент** — `src/data/*` (тексти, послуги, проєкти, команда, контакти).
-- **Кольори/типографіка** — `src/styles/abstracts/_variables.scss`.
-- **Фото** — зараз з Unsplash; підстав свої у `data/*`.
-- **Форма** — `ContactForm.jsx` має заглушку `onSubmit`; підключи бекенд/сервіс.
+## Деплой
+
+Налаштовано під **GitHub Pages**: при пуші в `main` спрацьовує
+`.github/workflows/deploy.yml` і викладає сайт. `base` береться з назви репозиторію
+автоматично, тож сайт коректно працює з підшляху `username.github.io/<repo>/`.
+
+Хостиш деінде (Vercel/Netlify) — конфіги вже є (`vercel.json`, `netlify.toml`),
+там сайт ляже на корінь домену без зайвих налаштувань.
