@@ -1,4 +1,5 @@
 import useCountUp from '../hooks/useCountUp'
+import useLocale from '../hooks/useLocale'
 import { stats } from '../data/site'
 
 function Stat({ value, suffix, label }) {
@@ -12,11 +13,12 @@ function Stat({ value, suffix, label }) {
 }
 
 export default function Stats() {
+  const { loc } = useLocale()
   return (
     <section className="stats section">
       <div className="container">
         <div className="stats__grid">
-          {stats.map((s) => <Stat key={s.label} {...s} />)}
+          {loc(stats).map((s) => <Stat key={s.label} {...s} />)}
         </div>
       </div>
     </section>

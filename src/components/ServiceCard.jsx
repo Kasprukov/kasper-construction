@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import Reveal from './Reveal'
 import Img from './Img'
 
 export default function ServiceCard({ service, index = 0 }) {
+  const { t } = useTranslation()
   return (
     <Reveal as="li" className="service-card" delay={(index % 3) * 0.08}>
       <Link className="service-card__link" to={`/services/${service.slug}`}>
@@ -15,7 +17,7 @@ export default function ServiceCard({ service, index = 0 }) {
           <h3 className="service-card__title">{service.title}</h3>
           <p className="service-card__text">{service.excerpt}</p>
           <span className="service-card__more">
-            Детальніше <span className="service-card__arrow" aria-hidden="true">→</span>
+            {t('cta.more')} <span className="service-card__arrow" aria-hidden="true">→</span>
           </span>
         </div>
       </Link>

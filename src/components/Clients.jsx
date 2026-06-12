@@ -1,11 +1,13 @@
+import { useTranslation } from 'react-i18next'
 import { clients } from '../data/site'
 
 export default function Clients() {
+  const { t } = useTranslation()
   const track = [...clients, ...clients]
   return (
-    <section className="clients section" aria-label="Клієнти та партнери">
+    <section className="clients section" aria-label="Clients">
       <div className="container">
-        <p className="clients__caption">Нам довіряють девелопери та бренди</p>
+        <p className="clients__caption">{t('labels.trusted')}</p>
       </div>
       <div className="clients__marquee">
         <div className="clients__track">

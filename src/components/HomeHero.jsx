@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Magnetic from './Magnetic'
 import Img from './Img'
+import useLocale from '../hooks/useLocale'
 import { home } from '../data/site'
 
 const lineVariants = {
@@ -17,6 +18,7 @@ const lineVariants = {
 
 export default function HomeHero() {
   const { t } = useTranslation()
+  const { loc } = useLocale()
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
@@ -38,11 +40,11 @@ export default function HomeHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          {home.hero.kicker}
+          {loc(home.hero.kicker)}
         </motion.span>
 
         <h1 className="home-hero__title">
-          {home.hero.title.map((line, i) => (
+          {loc(home.hero.title).map((line, i) => (
             <span className="home-hero__line" key={i}>
               <motion.span
                 className="home-hero__line-inner"
@@ -63,7 +65,7 @@ export default function HomeHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
         >
-          {home.hero.text}
+          {loc(home.hero.text)}
         </motion.p>
 
         <motion.div

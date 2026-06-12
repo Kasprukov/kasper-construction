@@ -7,16 +7,19 @@ import Seo from '../components/Seo'
 import Share from '../components/Share'
 import ReadingProgress from '../components/ReadingProgress'
 import CTA from '../components/CTA'
+import useLocale from '../hooks/useLocale'
 import { getPost, posts } from '../data/journal'
 
 export default function JournalPost() {
   const { t } = useTranslation()
+  const { loc } = useLocale()
   const { slug } = useParams()
-  const post = getPost(slug)
-  if (!post) return <Navigate to="/journal" replace />
+  const raw = getPost(slug)
+  if (!raw) return <Navigate to="/journal" replace />
 
+  const post = loc(raw)
   const idx = posts.findIndex((p) => p.slug === slug)
-  const next = posts[(idx + 1) % posts.length]
+  const next = loc(posts[(idx + 1) % posts.length])
 
   return (
     <PageWrap>

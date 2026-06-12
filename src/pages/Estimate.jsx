@@ -4,82 +4,87 @@ import PageWrap from '../components/PageWrap'
 import PageHero from '../components/PageHero'
 import Seo from '../components/Seo'
 import Reveal from '../components/Reveal'
+import useLocale from '../hooks/useLocale'
 
 const types = [
-  { id: 'house', label: 'Приватний будинок', rate: 28000 },
-  { id: 'apartment', label: 'Квартира', rate: 22000 },
-  { id: 'commercial', label: 'Комерційний обʼєкт', rate: 24000 },
+  { id: 'house', label: { uk: 'Приватний будинок', en: 'Private house' }, rate: 28000 },
+  { id: 'apartment', label: { uk: 'Квартира', en: 'Apartment' }, rate: 22000 },
+  { id: 'commercial', label: { uk: 'Комерційний обʼєкт', en: 'Commercial' }, rate: 24000 },
 ]
 const finishes = [
-  { id: 'rough', label: 'Чорнове', k: 0.55 },
-  { id: 'standard', label: 'Стандарт', k: 1 },
-  { id: 'premium', label: 'Преміум', k: 1.55 },
+  { id: 'rough', label: { uk: 'Чорнове', en: 'Shell' }, k: 0.55 },
+  { id: 'standard', label: { uk: 'Стандарт', en: 'Standard' }, k: 1 },
+  { id: 'premium', label: { uk: 'Преміум', en: 'Premium' }, k: 1.55 },
 ]
 const scopes = [
-  { id: 'build', label: 'Лише будівництво', k: 0.85 },
-  { id: 'turnkey', label: 'Під ключ', k: 1 },
-  { id: 'full', label: 'Під ключ + меблі', k: 1.2 },
+  { id: 'build', label: { uk: 'Лише будівництво', en: 'Construction only' }, k: 0.85 },
+  { id: 'turnkey', label: { uk: 'Під ключ', en: 'Turnkey' }, k: 1 },
+  { id: 'full', label: { uk: 'Під ключ + меблі', en: 'Turnkey + furniture' }, k: 1.2 },
 ]
 
 const fmt = (n) => new Intl.NumberFormat('uk-UA').format(Math.round(n / 1000) * 1000)
 
 export default function Estimate() {
+  const { loc } = useLocale()
   const [type, setType] = useState(types[0].id)
   const [area, setArea] = useState(150)
   const [finish, setFinish] = useState('standard')
   const [scope, setScope] = useState('turnkey')
 
   const estimate = useMemo(() => {
-    const t = types.find((x) => x.id === type)
+    const tp = types.find((x) => x.id === type)
     const f = finishes.find((x) => x.id === finish)
     const s = scopes.find((x) => x.id === scope)
-    const base = t.rate * area * f.k * s.k
-    return { low: base * 0.9, high: base * 1.15, perM: (base / area) }
+    const base = tp.rate * area * f.k * s.k
+    return { low: base * 0.9, high: base * 1.15, perM: base / area }
   }, [type, area, finish, scope])
+
+  const m2 = loc({ uk: 'мІ', en: 'm²' })
+  const uah = loc({ uk: 'грн', en: 'UAH' })
 
   return (
     <PageWrap>
-      <Seo title="Калькулятор вартості" description="Орієнтовний розрахунок вартості будівництва під ключ за хвилину." path="/estimate" />
+      <Seo title={loc({ uk: 'Калькулятор вартості', en: 'Cost estimate' })} description={loc({ uk: 'Орієнтовний розрахунок вартості будівництва під ключ за хвилину.', en: 'A rough turnkey construction estimate in under a minute.' })} path="/estimate" />
       <PageHero
-        kicker="Калькулятор"
-        title="Орієнтовна вартість за хвилину"
-        text="Налаштуйте параметри — і отримайте діапазон бюджету. Точний кошторис складемо після зустрічі."
+        kicker={loc({ uk: 'Калькулятор', en: 'Estimate' })}
+        title={loc({ uk: 'Орієнтовна вартість за хвилину', en: 'A ballpark figure in a minute' })}
+        text={loc({ uk: 'Налаштуйте параметри — і отримайте діапазон бюджету. Точний кошторис складемо після зустрічі.', en: 'Set the parameters and get a budget range. We’ll prepare an exact estimate after a meeting.' })}
         image="/img/hero-build.jpg"
-        crumbs={[{ label: 'Калькулятор' }]}
+        crumbs={[{ label: loc({ uk: 'Калькулятор', en: 'Estimate' }) }]}
       />
 
       <section className="section">
         <div className="container estimate">
           <div className="estimate__controls">
             <Reveal className="estimate__group">
-              <span className="estimate__label">Тип обʼєкта</span>
+              <span className="estimate__label">{loc({ uk: 'Тип обʼєкта', en: 'Property type' })}</span>
               <div className="chips">
                 {types.map((o) => (
-                  <button key={o.id} className={`chip${type === o.id ? ' chip--active' : ''}`} onClick={() => setType(o.id)}>{o.label}</button>
+                  <button key={o.id} className={`chip${type === o.id ? ' chip--active' : ''}`} onClick={() => setType(o.id)}>{loc(o.label)}</button>
                 ))}
               </div>
             </Reveal>
 
             <Reveal className="estimate__group" delay={0.05}>
-              <span className="estimate__label">Площа — <b>{area} мІ</b></span>
+              <span className="estimate__label">{loc({ uk: 'Площа', en: 'Area' })} — <b>{area} {m2}</b></span>
               <input className="estimate__range" type="range" min="40" max="800" step="10" value={area} onChange={(e) => setArea(+e.target.value)} />
-              <div className="estimate__scale"><span>40 мІ</span><span>800 мІ</span></div>
+              <div className="estimate__scale"><span>40 {m2}</span><span>800 {m2}</span></div>
             </Reveal>
 
             <Reveal className="estimate__group" delay={0.1}>
-              <span className="estimate__label">Рівень оздоблення</span>
+              <span className="estimate__label">{loc({ uk: 'Рівень оздоблення', en: 'Finish level' })}</span>
               <div className="chips">
                 {finishes.map((o) => (
-                  <button key={o.id} className={`chip${finish === o.id ? ' chip--active' : ''}`} onClick={() => setFinish(o.id)}>{o.label}</button>
+                  <button key={o.id} className={`chip${finish === o.id ? ' chip--active' : ''}`} onClick={() => setFinish(o.id)}>{loc(o.label)}</button>
                 ))}
               </div>
             </Reveal>
 
             <Reveal className="estimate__group" delay={0.15}>
-              <span className="estimate__label">Обсяг робіт</span>
+              <span className="estimate__label">{loc({ uk: 'Обсяг робіт', en: 'Scope of work' })}</span>
               <div className="chips">
                 {scopes.map((o) => (
-                  <button key={o.id} className={`chip${scope === o.id ? ' chip--active' : ''}`} onClick={() => setScope(o.id)}>{o.label}</button>
+                  <button key={o.id} className={`chip${scope === o.id ? ' chip--active' : ''}`} onClick={() => setScope(o.id)}>{loc(o.label)}</button>
                 ))}
               </div>
             </Reveal>
@@ -87,15 +92,15 @@ export default function Estimate() {
 
           <Reveal className="estimate__result" delay={0.1}>
             <div className="estimate__glow" aria-hidden="true" />
-            <span className="estimate__result-label">Орієнтовний бюджет</span>
+            <span className="estimate__result-label">{loc({ uk: 'Орієнтовний бюджет', en: 'Estimated budget' })}</span>
             <div className="estimate__amount" aria-live="polite">
-              {fmt(estimate.low)} – {fmt(estimate.high)} <span className="estimate__cur">грн</span>
+              {fmt(estimate.low)} – {fmt(estimate.high)} <span className="estimate__cur">{uah}</span>
             </div>
-            <span className="estimate__per">≈ {fmt(estimate.perM)} грн/мІ · {area} мІ</span>
+            <span className="estimate__per">≈ {fmt(estimate.perM)} {uah}/{m2} · {area} {m2}</span>
             <p className="estimate__note">
-              Це попередня оцінка для планування. Фіксований кошторис складаємо після зустрічі та аналізу проєкту.
+              {loc({ uk: 'Це попередня оцінка для планування. Фіксований кошторис складаємо після зустрічі та аналізу проєкту.', en: 'This is a rough figure for planning. We prepare a fixed estimate after a meeting and a look at the project.' })}
             </p>
-            <Link className="btn btn--accent btn--block btn--lg" to="/contacts">Отримати точний кошторис</Link>
+            <Link className="btn btn--accent btn--block btn--lg" to="/contacts">{loc({ uk: 'Отримати точний кошторис', en: 'Get an exact estimate' })}</Link>
           </Reveal>
         </div>
       </section>

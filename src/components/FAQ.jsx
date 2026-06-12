@@ -2,18 +2,21 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import SectionHead from './SectionHead'
+import useLocale from '../hooks/useLocale'
 import { faq } from '../data/faq'
 
 export default function FAQ() {
   const { t } = useTranslation()
+  const { loc } = useLocale()
   const [open, setOpen] = useState(0)
+  const items = loc(faq)
 
   return (
     <section className="section faq">
       <div className="container faq__wrap">
         <SectionHead kicker={t('sections.faqKicker')} title={t('sections.faqTitle')} />
         <ul className="faq__list">
-          {faq.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i
             return (
               <li className={`faq__item${isOpen ? ' faq__item--open' : ''}`} key={item.q}>

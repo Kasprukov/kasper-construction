@@ -1,16 +1,18 @@
 import { useTranslation } from 'react-i18next'
 import SectionHead from './SectionHead'
 import Reveal from './Reveal'
+import useLocale from '../hooks/useLocale'
 import { testimonials } from '../data/testimonials'
 
 export default function Testimonials() {
   const { t } = useTranslation()
+  const { loc } = useLocale()
   return (
     <section className="section section--alt testimonials">
       <div className="container">
         <SectionHead kicker={t('sections.testimonialsKicker')} title={t('sections.testimonialsTitle')} align="center" />
         <ul className="testimonials__grid">
-          {testimonials.map((item, i) => (
+          {loc(testimonials).map((item, i) => (
             <Reveal as="li" className="testimonial" key={item.name} delay={(i % 3) * 0.08}>
               <span className="testimonial__quote-mark" aria-hidden="true">”</span>
               <p className="testimonial__text">{item.quote}</p>

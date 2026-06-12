@@ -1,8 +1,12 @@
+import useLocale from '../hooks/useLocale'
+
 /**
  * Share buttons: uses the native Web Share API when available, with
  * Telegram / Facebook / copy-link fallbacks.
  */
 export default function Share({ title }) {
+  const { loc } = useLocale()
+  const shareLabel = loc({ uk: 'Поділитись', en: 'Share' })
   const url = typeof window !== 'undefined' ? window.location.href : ''
 
   const native = async () => {
@@ -16,7 +20,7 @@ export default function Share({ title }) {
 
   return (
     <div className="share">
-      <span className="share__label">Поділитись</span>
+      <span className="share__label">{shareLabel}</span>
       <div className="share__btns">
         {typeof navigator !== 'undefined' && navigator.share && (
           <button className="share__btn" onClick={native} aria-label="Поділитись">↗</button>
