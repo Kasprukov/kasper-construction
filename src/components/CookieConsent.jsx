@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { initAnalytics } from '../lib/analytics'
@@ -12,6 +13,12 @@ export default function CookieConsent() {
     if (choice === 'accepted') initAnalytics()
     if (!choice) setShow(true)
   }, [])
+
+  // Lets CSS lift the floating dock so the two don't overlap on mobile.
+  useEffect(() => {
+    document.body.classList.toggle('cookie-open', show)
+    return () => document.body.classList.remove('cookie-open')
+  }, [show])
 
   const decide = (accepted) => {
     localStorage.setItem('cookie-consent', accepted ? 'accepted' : 'declined')
@@ -33,7 +40,7 @@ export default function CookieConsent() {
         >
           <p className="cookie__text">
             {t('cookie.text')}{' '}
-            <a className="cookie__more" href="/cookies">{t('cookie.more')}</a>
+            <Link className="cookie__more" to="/cookies">{t('cookie.more')}</Link>
           </p>
           <div className="cookie__actions">
             <button className="btn btn--outline cookie__btn" onClick={() => decide(false)}>

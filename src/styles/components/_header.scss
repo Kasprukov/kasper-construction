@@ -3,7 +3,9 @@
 .header {
   position: fixed;
   inset: 0 0 auto 0;
-  z-index: 100;
+  // Above the cookie bar (8000), dock (7000) and grid (8400) so the mobile
+  // menu overlay sits on top of them.
+  z-index: 8800;
   transition: background $dur $ease-soft, box-shadow $dur $ease-soft, backdrop-filter $dur $ease-soft;
 
   &__inner {
@@ -66,8 +68,12 @@
       inset: 0;
       flex-direction: column;
       justify-content: center;
-      gap: 30px;
-      background: rgba($bg, 0.96);
+      gap: 22px;
+      // Clear the fixed header and let the menu scroll if it’s taller than the screen.
+      padding: 86px 20px 32px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background: rgba($bg, 0.97);
       backdrop-filter: blur(18px);
       transform: translateY(-100%);
       opacity: 0;
@@ -76,9 +82,9 @@
     }
     &__nav--open { transform: translateY(0); opacity: 1; pointer-events: auto; }
 
-    &__list { flex-direction: column; align-items: center; gap: 10px; }
-    &__link { font-family: $font-display; font-size: 2rem; color: $ink; }
-    &__nav-phone { display: block; margin-top: 14px; font-size: 1.1rem; color: $accent; font-weight: 600; }
+    &__list { flex-direction: column; align-items: center; gap: 2px; }
+    &__link { font-family: $font-display; font-size: 1.6rem; color: $ink; padding: 4px 0; }
+    &__nav-phone { display: block; margin-top: 8px; font-size: 1.05rem; color: $accent; font-weight: 600; }
   }
 }
 
