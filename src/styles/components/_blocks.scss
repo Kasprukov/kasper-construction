@@ -1,0 +1,154 @@
+@use '../abstracts' as *;
+
+// ── Project case narrative ──────────────────────────────────────
+.case {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: fluid(32, 64);
+  margin-bottom: fluid(40, 64);
+  @include mq(lg) { grid-template-columns: 1.5fr 1fr; }
+
+  &__story { display: grid; gap: 28px; }
+  &__block { }
+  &__label {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.76rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $accent;
+  }
+  &__text { font-size: fluid(16, 19); color: $ink; max-width: 46ch; }
+
+  &__scope {
+    padding: 30px;
+    border-radius: $radius-lg;
+    border: 1px solid $line;
+    background: $bg-3;
+    align-self: start;
+  }
+  &__scope-title { font-size: 1.3rem; }
+  &__scope-list { margin-top: 18px; display: grid; gap: 12px; }
+  &__scope-item { display: flex; align-items: flex-start; gap: 12px; color: $ink-2; }
+  &__scope-mark { color: $accent; }
+}
+
+.case-quote {
+  margin-bottom: fluid(40, 64);
+  padding: fluid(28, 48);
+  border-left: 2px solid $accent;
+  background: radial-gradient(60% 120% at 0% 0%, rgba($accent, 0.08), transparent 60%);
+  border-radius: 0 $radius $radius 0;
+
+  &__text { font-family: $font-display; font-size: fluid(20, 30); line-height: 1.3; color: $ink; }
+  &__author { display: block; margin-top: 16px; color: $accent; font-size: 0.95rem; }
+}
+
+// ── Packages ────────────────────────────────────────────────────
+.packages {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  @include mq(md) { grid-template-columns: repeat(3, 1fr); }
+}
+.package {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 30px;
+  border-radius: $radius-lg;
+  border: 1px solid $line;
+  background: $bg-3;
+  transition: transform $dur $ease-out, border-color $dur $ease-soft;
+
+  &--popular { border-color: rgba($accent, 0.6); box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35); }
+  &__badge {
+    position: absolute;
+    top: -12px; left: 30px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $on-accent;
+    background: linear-gradient(120deg, $accent-2, $accent 60%);
+  }
+  &__note { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: $muted; }
+  &__name { margin-top: 8px; font-size: 1.6rem; }
+  &__list { margin: 22px 0 26px; display: grid; gap: 12px; flex: 1; }
+  &__item { display: flex; align-items: flex-start; gap: 12px; color: $ink-2; }
+  &__check {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba($accent, 0.16);
+    color: $accent;
+    font-size: 0.75rem;
+  }
+  &:hover { transform: translateY(-5px); }
+}
+
+// ── Awards ──────────────────────────────────────────────────────
+.awards {
+  margin-top: fluid(40, 64);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: $line;
+  border: 1px solid $line;
+  border-radius: $radius;
+  overflow: hidden;
+  @include mq(md) { grid-template-columns: repeat(4, 1fr); }
+}
+.award {
+  background: $bg;
+  padding: 26px;
+  &__year { display: block; font-family: $font-display; font-size: 1.6rem; color: $accent; }
+  &__title { display: block; margin-top: 8px; color: $ink-2; font-size: 0.92rem; }
+}
+
+// ── Timeline ────────────────────────────────────────────────────
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 0;
+}
+.timeline__item {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 24px;
+  padding: 26px 0;
+  border-top: 1px solid $line;
+  @include mq(md) { grid-template-columns: 160px 1fr; }
+
+  &:last-child { border-bottom: 1px solid $line; }
+}
+.timeline__year { font-family: $font-display; font-size: fluid(22, 34); color: $accent; }
+.timeline__title { font-size: 1.4rem; }
+.timeline__text { margin-top: 8px; color: $ink-2; }
+
+// ── Press ───────────────────────────────────────────────────────
+.press {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: fluid(28, 64);
+
+  &__item {
+    font-family: $font-display;
+    font-size: fluid(20, 32);
+    color: rgba($ink, 0.4);
+    transition: color $dur $ease-soft;
+    &:hover { color: $ink; }
+  }
+}
+
+// ── Load more ───────────────────────────────────────────────────
+.load-more {
+  margin-top: fluid(36, 56);
+  display: flex;
+  justify-content: center;
+}

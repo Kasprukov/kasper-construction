@@ -1,0 +1,104 @@
+import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+import PageWrap from '../components/PageWrap'
+import PageHero from '../components/PageHero'
+import Seo from '../components/Seo'
+import Reveal from '../components/Reveal'
+
+const types = [
+  { id: 'house', label: 'Приватний будинок', rate: 28000 },
+  { id: 'apartment', label: 'Квартира', rate: 22000 },
+  { id: 'commercial', label: 'Комерційний обʼєкт', rate: 24000 },
+]
+const finishes = [
+  { id: 'rough', label: 'Чорнове', k: 0.55 },
+  { id: 'standard', label: 'Стандарт', k: 1 },
+  { id: 'premium', label: 'Преміум', k: 1.55 },
+]
+const scopes = [
+  { id: 'build', label: 'Лише будівництво', k: 0.85 },
+  { id: 'turnkey', label: 'Під ключ', k: 1 },
+  { id: 'full', label: 'Під ключ + меблі', k: 1.2 },
+]
+
+const fmt = (n) => new Intl.NumberFormat('uk-UA').format(Math.round(n / 1000) * 1000)
+
+export default function Estimate() {
+  const [type, setType] = useState(types[0].id)
+  const [area, setArea] = useState(150)
+  const [finish, setFinish] = useState('standard')
+  const [scope, setScope] = useState('turnkey')
+
+  const estimate = useMemo(() => {
+    const t = types.find((x) => x.id === type)
+    const f = finishes.find((x) => x.id === finish)
+    const s = scopes.find((x) => x.id === scope)
+    const base = t.rate * area * f.k * s.k
+    return { low: base * 0.9, high: base * 1.15, perM: (base / area) }
+  }, [type, area, finish, scope])
+
+  return (
+    <PageWrap>
+      <Seo title="Калькулятор вартості" description="Орієнтовний розрахунок вартості будівництва під ключ за хвилину." path="/estimate" />
+      <PageHero
+        kicker="Калькулятор"
+        title="Орієнтовна вартість за хвилину"
+        text="Налаштуйте параметри — і отримайте діапазон бюджету. Точний кошторис складемо після зустрічі."
+        image="/img/hero-build.jpg"
+        crumbs={[{ label: 'Калькулятор' }]}
+      />
+
+      <section className="section">
+        <div className="container estimate">
+          <div className="estimate__controls">
+            <Reveal className="estimate__group">
+              <span className="estimate__label">Тип обʼєкта</span>
+              <div className="chips">
+                {types.map((o) => (
+                  <button key={o.id} className={`chip${type === o.id ? ' chip--active' : ''}`} onClick={() => setType(o.id)}>{o.label}</button>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal className="estimate__group" delay={0.05}>
+              <span className="estimate__label">Площа — <b>{area} мІ</b></span>
+              <input className="estimate__range" type="range" min="40" max="800" step="10" value={area} onChange={(e) => setArea(+e.target.value)} />
+              <div className="estimate__scale"><span>40 мІ</span><span>800 мІ</span></div>
+            </Reveal>
+
+            <Reveal className="estimate__group" delay={0.1}>
+              <span className="estimate__label">Рівень оздоблення</span>
+              <div className="chips">
+                {finishes.map((o) => (
+                  <button key={o.id} className={`chip${finish === o.id ? ' chip--active' : ''}`} onClick={() => setFinish(o.id)}>{o.label}</button>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal className="estimate__group" delay={0.15}>
+              <span className="estimate__label">Обсяг робіт</span>
+              <div className="chips">
+                {scopes.map((o) => (
+                  <button key={o.id} className={`chip${scope === o.id ? ' chip--active' : ''}`} onClick={() => setScope(o.id)}>{o.label}</button>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal className="estimate__result" delay={0.1}>
+            <div className="estimate__glow" aria-hidden="true" />
+            <span className="estimate__result-label">Орієнтовний бюджет</span>
+            <div className="estimate__amount" aria-live="polite">
+              {fmt(estimate.low)} – {fmt(estimate.high)} <span className="estimate__cur">грн</span>
+            </div>
+            <span className="estimate__per">≈ {fmt(estimate.perM)} грн/мІ · {area} мІ</span>
+            <p className="estimate__note">
+              Це попередня оцінка для планування. Фіксований кошторис складаємо після зустрічі та аналізу проєкту.
+            </p>
+            <Link className="btn btn--accent btn--block btn--lg" to="/contacts">Отримати точний кошторис</Link>
+          </Reveal>
+        </div>
+      </section>
+    </PageWrap>
+  )
+}

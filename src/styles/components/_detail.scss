@@ -1,0 +1,111 @@
+@use '../abstracts' as *;
+
+.detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: fluid(36, 64);
+  @include mq(lg) { grid-template-columns: 1.6fr 1fr; align-items: start; }
+
+  &__lead { font-size: fluid(18, 24); line-height: 1.5; color: $ink; max-width: 40ch; }
+  &__subtitle { margin-top: fluid(36, 56); font-size: fluid(22, 32); }
+
+  &__aside { @include mq(lg) { position: sticky; top: 100px; } }
+
+  &__card {
+    padding: 32px;
+    border-radius: $radius-lg;
+    border: 1px solid $line-2;
+    background: $bg-3;
+  }
+  &__price {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $line;
+  }
+  &__price-label { color: $muted; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  &__price-value { font-family: $font-display; font-size: 1.5rem; color: $accent; text-align: right; }
+
+  &__card-title { font-size: 1.4rem; }
+  &__list { margin: 20px 0 28px; display: grid; gap: 14px; }
+  &__list-item { display: flex; align-items: flex-start; gap: 12px; color: $ink-2; }
+  &__list-mark { color: $accent; }
+
+  &__related-title { font-size: fluid(24, 38); margin-bottom: fluid(28, 44); }
+}
+
+.steps {
+  margin-top: 28px;
+  display: grid;
+  gap: 4px;
+
+  &__item {
+    display: flex;
+    gap: 22px;
+    padding: 24px 0;
+    border-top: 1px solid $line;
+  }
+  &__num { font-family: $font-display; font-size: 1.6rem; color: $accent; min-width: 48px; }
+  &__title { font-size: 1.3rem; }
+  &__text { margin-top: 6px; color: $ink-2; }
+}
+
+// Project detail facts + gallery
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin-bottom: fluid(40, 64);
+  background: $line;
+  border: 1px solid $line;
+  border-radius: $radius;
+  overflow: hidden;
+  @include mq(md) { grid-template-columns: repeat(4, 1fr); }
+
+  &__item { background: $bg; padding: 26px; }
+  &__label { display: block; color: $muted; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  &__value { display: block; margin-top: 10px; font-family: $font-display; font-size: 1.5rem; }
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  @include mq(md) { grid-template-columns: repeat(2, 1fr); }
+
+  &__item {
+    border-radius: $radius-lg;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid $line;
+    @include mq(md) { &--wide { grid-column: 1 / -1; aspect-ratio: 16 / 7; } }
+  }
+  &__img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s $ease-out;
+  }
+  &__item:hover &__img { transform: scale(1.04); }
+}
+
+.next-project {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__label { color: $muted; font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-family: $font-display;
+    font-size: fluid(28, 52);
+    color: $ink;
+    transition: color $dur $ease-soft, gap $dur $ease-out;
+    span { color: $accent; }
+    &:hover { color: $accent; gap: 24px; }
+  }
+}

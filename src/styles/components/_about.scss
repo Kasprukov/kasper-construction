@@ -1,0 +1,102 @@
+@use '../abstracts' as *;
+
+// Home teaser
+.about-teaser {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: fluid(32, 72);
+  align-items: center;
+  @include mq(lg) { grid-template-columns: 1fr 1fr; }
+
+  &__media { border-radius: $radius-lg; overflow: hidden; aspect-ratio: 4 / 3; }
+  &__img { width: 100%; height: 100%; object-fit: cover; }
+  &__text { margin-top: 20px; color: $ink-2; font-size: fluid(16, 18); }
+  .btn { margin-top: 30px; }
+}
+
+// About page intro
+.about-intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: fluid(32, 72);
+  align-items: center;
+  @include mq(lg) { grid-template-columns: 1fr 1.1fr; }
+
+  &__media { position: relative; border-radius: $radius-lg; overflow: hidden; aspect-ratio: 4 / 5; }
+  &__img { position: absolute; inset: -10% 0; width: 100%; height: 120%; object-fit: cover; will-change: transform; }
+  &__text { margin-top: 18px; color: $ink-2; font-size: fluid(16, 18); max-width: 54ch; }
+}
+
+// Values
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  @include mq(sm) { grid-template-columns: repeat(2, 1fr); }
+  @include mq(lg) { grid-template-columns: repeat(4, 1fr); }
+}
+
+.value-card {
+  padding: 30px;
+  border-radius: $radius;
+  border: 1px solid $line;
+  background: $bg-3;
+  transition: transform $dur $ease-out, border-color $dur $ease-soft;
+
+  &__mark {
+    display: grid;
+    place-items: center;
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: rgba($accent, 0.14);
+    color: $accent;
+    font-size: 1.1rem;
+  }
+  &__title { margin-top: 18px; font-size: 1.3rem; }
+  &__text { margin-top: 10px; color: $ink-2; font-size: 0.96rem; }
+
+  &:hover { transform: translateY(-5px); border-color: $line-2; }
+}
+
+// Formats of cooperation (Services page)
+.formats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  @include mq(md) { grid-template-columns: repeat(3, 1fr); }
+}
+.format-card {
+  padding: 34px 30px;
+  border-radius: $radius-lg;
+  border: 1px solid $line;
+  background: $bg-3;
+  transition: transform $dur $ease-out, border-color $dur $ease-soft;
+
+  &__num {
+    font-family: $font-display;
+    font-size: 2.2rem;
+    color: $accent;
+  }
+  &__title { margin-top: 14px; font-size: 1.4rem; }
+  &__text { margin-top: 10px; color: $ink-2; }
+
+  &:hover { transform: translateY(-5px); border-color: $line-2; }
+}
+
+// Process
+.process {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  @include mq(md) { grid-template-columns: repeat(2, 1fr); }
+  @include mq(lg) { grid-template-columns: repeat(4, 1fr); }
+
+  &__item {
+    padding: 30px 26px 30px 0;
+    border-top: 1px solid $line-2;
+    margin-top: -1px;
+  }
+  &__step { font-family: $font-display; font-size: 1.1rem; color: $accent; }
+  &__title { margin-top: 14px; font-size: 1.35rem; }
+  &__text { margin-top: 10px; color: $ink-2; font-size: 0.96rem; }
+}

@@ -1,0 +1,53 @@
+@use '../abstracts' as *;
+
+.faq__wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: fluid(28, 56);
+  @include mq(lg) { grid-template-columns: 0.8fr 1.2fr; align-items: start; }
+}
+
+.faq__list { border-top: 1px solid $line; }
+
+.faq__item {
+  border-bottom: 1px solid $line;
+
+  &__open { }
+}
+
+.faq__q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 0;
+  text-align: left;
+  font-family: $font-display;
+  font-size: fluid(18, 24);
+  color: $ink;
+  transition: color $dur $ease-soft;
+  &:hover { color: $accent; }
+}
+
+.faq__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 14px; height: 2px;
+    background: $accent;
+    transform: translate(-50%, -50%);
+    transition: transform $dur $ease-out;
+  }
+  &::after { transform: translate(-50%, -50%) rotate(90deg); }
+}
+.faq__item--open .faq__icon::after { transform: translate(-50%, -50%) rotate(0); }
+
+.faq__a-wrap { overflow: hidden; }
+.faq__a { padding-bottom: 26px; color: $ink-2; max-width: 60ch; }

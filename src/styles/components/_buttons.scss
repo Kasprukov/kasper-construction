@@ -1,0 +1,66 @@
+@use '../abstracts' as *;
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform $dur $ease-out, box-shadow $dur $ease-out,
+    color $dur $ease-soft, border-color $dur $ease-soft, background $dur $ease-soft;
+
+  &--lg { padding: 18px 36px; font-size: 1rem; }
+  &--block { width: 100%; }
+
+  // Gold filled — primary.
+  &--accent {
+    color: $on-accent;
+    background: linear-gradient(120deg, $accent-2, $accent 60%);
+    box-shadow: 0 10px 30px rgba($accent, 0.22);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(120deg, #fff, $accent-2 70%);
+      opacity: 0;
+      transition: opacity $dur $ease-soft;
+    }
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba($accent, 0.34);
+      &::after { opacity: 1; }
+    }
+  }
+
+  // Outlined — on dark.
+  &--outline {
+    color: $ink;
+    border: 1.5px solid $line-2;
+    background: transparent;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: $ink;
+      transform: translateY(101%);
+      transition: transform $dur $ease-out;
+    }
+    &:hover {
+      color: $on-accent;
+      border-color: transparent;
+      transform: translateY(-2px);
+      &::after { background: linear-gradient(120deg, $accent-2, $accent 60%); transform: translateY(0); }
+    }
+  }
+}

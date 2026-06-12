@@ -1,0 +1,110 @@
+@use '../abstracts' as *;
+
+.projects-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: fluid(28, 48);
+
+  &__filter {
+    padding: 10px 22px;
+    border-radius: 100px;
+    border: 1.5px solid $line;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: $ink-2;
+    transition: color $dur $ease-soft, background $dur $ease-soft, border-color $dur $ease-soft;
+
+    &:hover { border-color: $line-2; color: $ink; }
+    &--active {
+      color: $on-accent;
+      background: linear-gradient(120deg, $accent-2, $accent 60%);
+      border-color: transparent;
+    }
+  }
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+
+  @include mq(sm) { grid-template-columns: repeat(2, 1fr); }
+  @include mq(lg) { grid-template-columns: repeat(3, 1fr); }
+}
+
+.project-card {
+  &__link {
+    position: relative;
+    display: block;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid $line;
+  }
+
+  &__media { aspect-ratio: 4 / 5; overflow: hidden; }
+  &__img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s $ease-out, filter $dur $ease-soft;
+    filter: saturate(0.95) brightness(0.92);
+  }
+
+  &__meta {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 1;
+    padding: 26px;
+    color: $ink;
+    background: linear-gradient(180deg, rgba($bg, 0) 0%, rgba($bg, 0.9) 100%);
+    transform: translateY(10px);
+    transition: transform $dur $ease-out;
+  }
+
+  &__tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $accent;
+    margin-bottom: 8px;
+  }
+  &__title { font-size: 1.45rem; }
+  &__loc {
+    display: block;
+    margin-top: 4px;
+    color: $ink-2;
+    font-size: 0.92rem;
+    opacity: 0;
+    transition: opacity $dur $ease-soft;
+  }
+
+  &__plus {
+    position: absolute;
+    top: 18px; right: 18px;
+    z-index: 1;
+    width: 46px; height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba($ink, 0.14);
+    backdrop-filter: blur(6px);
+    color: $ink;
+    font-size: 1.2rem;
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform $dur $ease-out, opacity $dur $ease-soft, background $dur $ease-soft, color $dur $ease-soft;
+  }
+
+  &__link:hover {
+    .project-card__img { transform: scale(1.06); filter: saturate(1.05) brightness(1); }
+    .project-card__meta { transform: translateY(0); }
+    .project-card__loc { opacity: 1; }
+    .project-card__plus {
+      transform: scale(1); opacity: 1;
+      background: linear-gradient(120deg, $accent-2, $accent 60%);
+      color: $on-accent;
+    }
+  }
+}

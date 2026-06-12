@@ -1,0 +1,30 @@
+@use 'sass:math';
+@use 'variables' as *;
+
+// Max-width media query (mobile-first → use `@include mq(md)` for ≥768px).
+@mixin mq($bp) {
+  @if $bp == sm { @media (min-width: $bp-sm) { @content; } }
+  @else if $bp == md { @media (min-width: $bp-md) { @content; } }
+  @else if $bp == lg { @media (min-width: $bp-lg) { @content; } }
+  @else if $bp == xl { @media (min-width: $bp-xl) { @content; } }
+}
+
+// Max-width (desktop-down) helper.
+@mixin mq-down($bp) {
+  @if $bp == sm { @media (max-width: $bp-sm - 1px) { @content; } }
+  @else if $bp == md { @media (max-width: $bp-md - 1px) { @content; } }
+  @else if $bp == lg { @media (max-width: $bp-lg - 1px) { @content; } }
+  @else if $bp == xl { @media (max-width: $bp-xl - 1px) { @content; } }
+}
+
+// Fluid value between two viewport widths.
+@function fluid($min, $max, $vw-min: 360, $vw-max: 1280) {
+  $slope: math.div($max - $min, $vw-max - $vw-min);
+  $base: $min - $slope * $vw-min;
+  @return clamp(#{$min}px, #{$base}px + #{$slope * 100}vw, #{$max}px);
+}
+
+@mixin focus-ring {
+  outline: 2px solid $accent;
+  outline-offset: 3px;
+}

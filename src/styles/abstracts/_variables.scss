@@ -1,0 +1,35 @@
+// ── Design tokens — Dark Luxe / Cinematic ───────────────────────
+$bg:          #0d0d10;   // page base (near-black)
+$bg-2:        #141318;   // alt sections
+$bg-3:        #1b1a21;   // cards / raised surfaces
+$ink:         #f4f1ea;   // primary text (warm white)
+$ink-2:       #cfcabf;   // secondary text
+$muted:       #8e887c;   // muted text
+$line:        rgba(244, 241, 234, 0.10);
+$line-2:      rgba(244, 241, 234, 0.18);
+
+$accent:      #c9a36a;   // gold
+$accent-2:    #e6cda0;   // light gold (highlights / gradients)
+$accent-deep: #a8814a;   // deep bronze
+$on-accent:   #15110a;   // text on gold
+
+// Typography
+$font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+$font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+
+// Layout
+$container: 1320px;
+$gutter: 24px;
+$radius: 16px;
+$radius-lg: 26px;
+
+// Motion
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+$dur: 0.5s;
+
+// Breakpoints
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;

@@ -1,0 +1,40 @@
+@use '../abstracts' as *;
+
+.stats {
+  background:
+    radial-gradient(70% 120% at 50% 0%, rgba($accent, 0.10), transparent 60%),
+    $bg-2;
+  border-block: 1px solid $line;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 24px;
+    @include mq(lg) { grid-template-columns: repeat(4, 1fr); }
+  }
+}
+
+.stat {
+  position: relative;
+  padding-left: 22px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 2px; height: calc(100% - 12px);
+    background: linear-gradient($accent-2, $accent-deep);
+    border-radius: 3px;
+  }
+
+  &__value {
+    font-family: $font-display;
+    font-weight: 500;
+    font-size: fluid(40, 76);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+  }
+  &__suffix { color: $accent; }
+  &__label { margin-top: 12px; color: $muted; font-size: 0.98rem; }
+}

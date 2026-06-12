@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://forma.ua/</loc><priority>1.0</priority></url>
+  <url><loc>https://forma.ua/about</loc><priority>0.8</priority></url>
+  <url><loc>https://forma.ua/services</loc><priority>0.8</priority></url>
+  <url><loc>https://forma.ua/services/project-management</loc><priority>0.6</priority></url>
+  <url><loc>https://forma.ua/services/turnkey-construction</loc><priority>0.6</priority></url>
+  <url><loc>https://forma.ua/services/interior-design</loc><priority>0.6</priority></url>
+  <url><loc>https://forma.ua/services/engineering</loc><priority>0.6</priority></url>
+  <url><loc>https://forma.ua/services/supervision</loc><priority>0.6</priority></url>
+  <url><loc>https://forma.ua/services/furniture</loc><priority>0.6</priority></url>
+  <url><loc>https://forma.ua/projects</loc><priority>0.8</priority></url>
+  <url><loc>https://forma.ua/team</loc><priority>0.7</priority></url>
+  <url><loc>https://forma.ua/journal</loc><priority>0.7</priority></url>
+  <url><loc>https://forma.ua/contacts</loc><priority>0.7</priority></url>
+</urlset>

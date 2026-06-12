@@ -1,0 +1,41 @@
+@use '../abstracts' as *;
+
+.container {
+  width: 100%;
+  max-width: $container;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 64px);
+}
+
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+.app__main { flex: 1; }
+
+.section {
+  padding-block: fluid(72, 132);
+
+  &--alt { background: $bg-2; }
+}
+
+// Heading row with a trailing link (used on Home previews).
+.section__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: fluid(36, 60);
+
+  .section-head { margin-bottom: 0; }
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: $ink;
+  transition: gap $dur $ease-out, color $dur $ease-soft;
+
+  span { color: $accent; transition: transform $dur $ease-out; }
+  &:hover { color: $accent; span { transform: translateX(5px); } }
+}

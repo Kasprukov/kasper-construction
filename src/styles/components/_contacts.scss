@@ -1,0 +1,134 @@
+@use '../abstracts' as *;
+
+.contacts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: fluid(40, 72);
+  @include mq(lg) { grid-template-columns: 1fr 1.05fr; }
+
+  &__list { display: grid; gap: 2px; }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid $line;
+    &:last-child { border-bottom: 1px solid $line; }
+  }
+  &__label { color: $muted; font-size: 0.9rem; }
+  &__value {
+    font-weight: 600;
+    font-size: 1.08rem;
+    transition: color $dur $ease-soft;
+    &:hover { color: $accent; }
+  }
+
+  &__socials { display: flex; gap: 10px; margin-top: 28px; }
+  &__social {
+    width: 46px; height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid $line-2;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: background $dur $ease-soft, color $dur $ease-soft, transform $dur $ease-out;
+    &:hover { background: $accent; color: $on-accent; border-color: transparent; transform: translateY(-3px); }
+  }
+
+  &__map {
+    margin-top: 28px;
+    border-radius: $radius;
+    overflow: hidden;
+    border: 1px solid $line-2;
+    line-height: 0;
+  }
+  &__map-frame {
+    width: 100%;
+    height: 280px;
+    border: 0;
+    filter: grayscale(0.4) invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+  }
+  &__map-pin { color: $accent; font-size: 1.4rem; }
+
+  &__form-wrap {
+    padding: clamp(24px, 4vw, 44px);
+    border-radius: $radius-lg;
+    border: 1px solid $line-2;
+    background: $bg-3;
+  }
+}
+
+// Form (shared)
+.form {
+  display: grid;
+  gap: 18px;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    @include mq(sm) { grid-template-columns: 1fr 1fr; }
+  }
+  &__field { display: grid; gap: 8px; }
+  &__label { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; color: $ink-2; }
+
+  &__input {
+    width: 100%;
+    padding: 15px 18px;
+    border: 1.5px solid $line-2;
+    border-radius: 12px;
+    background: rgba($bg, 0.6);
+    color: $ink;
+    transition: border-color $dur $ease-soft, box-shadow $dur $ease-soft, background $dur $ease-soft;
+
+    &::placeholder { color: rgba($ink, 0.34); }
+    &:focus {
+      outline: none;
+      border-color: $accent;
+      background: rgba($bg, 0.9);
+      box-shadow: 0 0 0 4px rgba($accent, 0.16);
+    }
+    &--area { resize: vertical; min-height: 120px; }
+    &--select { appearance: none; cursor: pointer; }
+    option { color: #111; }
+  }
+
+  &__note { font-size: 0.8rem; color: $muted; text-align: center; }
+
+  &__input--error { border-color: #d9534f; box-shadow: 0 0 0 4px rgba(#d9534f, 0.14); }
+  &__err { font-size: 0.8rem; color: #e98b88; }
+  &__alert {
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(#d9534f, 0.12);
+    border: 1px solid rgba(#d9534f, 0.3);
+    color: #e98b88;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  &__honeypot {
+    position: absolute !important;
+    left: -9999px;
+    width: 1px; height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.contact-form {
+  &__success { text-align: center; padding: 30px 10px; }
+  &__success-mark {
+    display: grid;
+    place-items: center;
+    width: 66px; height: 66px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(120deg, $accent-2, $accent 60%);
+    color: $on-accent;
+    font-size: 1.7rem;
+  }
+  &__success-title { font-size: 1.8rem; }
+  &__success-text { margin-top: 10px; color: $ink-2; }
+}

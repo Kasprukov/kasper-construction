@@ -1,0 +1,40 @@
+@use '../abstracts' as *;
+
+.cta {
+  &__panel {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: clamp(32px, 5vw, 72px);
+    border-radius: $radius-lg;
+    border: 1px solid $line-2;
+    background:
+      radial-gradient(80% 140% at 0% 0%, rgba($accent, 0.16), transparent 55%),
+      $bg-3;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  &__glow {
+    position: absolute;
+    right: -10%; bottom: -40%;
+    width: 60%; height: 160%;
+    background: radial-gradient(closest-side, rgba($accent, 0.2), transparent);
+    pointer-events: none;
+  }
+
+  &__body { max-width: 620px; }
+  &__kicker {
+    font-weight: 600;
+    font-size: 0.76rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $accent;
+  }
+  &__title { margin-top: 14px; font-size: fluid(28, 52); }
+  &__text { margin-top: 16px; color: $ink-2; font-size: fluid(15, 18); }
+  &__actions { flex-shrink: 0; }
+}

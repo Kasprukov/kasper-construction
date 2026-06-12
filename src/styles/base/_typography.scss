@@ -1,0 +1,54 @@
+@use '../abstracts' as *;
+
+h1, h2, h3 {
+  font-family: $font-display;
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: $ink;
+}
+
+p { text-wrap: pretty; }
+
+// Shared kicker (eyebrow) label.
+.section-head {
+  max-width: 760px;
+  margin-bottom: fluid(36, 64);
+
+  &--center { margin-inline: auto; text-align: center; }
+  &--light { color: $ink; }
+
+  &__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.76rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $accent;
+
+    &::before {
+      content: '';
+      width: 26px;
+      height: 1px;
+      background: $accent;
+    }
+  }
+
+  &--center &__kicker::before { display: none; }
+
+  &__title {
+    font-size: fluid(32, 60);
+    margin-top: 18px;
+  }
+
+  &__lead {
+    margin-top: 20px;
+    max-width: 54ch;
+    font-size: fluid(16, 19);
+    color: $ink-2;
+  }
+
+  &--center &__lead { margin-inline: auto; }
+}
